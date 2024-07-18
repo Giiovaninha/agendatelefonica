@@ -1,4 +1,6 @@
 from django.db import models
+from django.shortcuts import render, get_object_or_404
+
 
 class Grupo(models.Model):
     nome = models.CharField(max_length=50, unique=True)
