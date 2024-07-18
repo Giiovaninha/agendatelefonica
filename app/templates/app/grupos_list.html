@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes do Grupo{% endblock %}
+
+{% block content %}
+<h1>Detalhes do Grupo</h1>
+<p><strong>Nome:</strong> {{ grupo.nome }}</p>
+
+{% if grupo.descricao %}
+<p><strong>Descrição:</strong> {{ grupo.descricao }}</p>
+{% endif %}
+{% endblock %}
