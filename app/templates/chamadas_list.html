@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    {% load static %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Contatos</h1>
+        <div class="row">
+            {% for contato in contatos %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if contato.foto %}
+                    <img src="{{ contato.foto.url }}" class="card-img-top" alt="Foto de {{ contato.nome }}">
+                    {% else %}
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Foto de {{ contato.nome }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ contato.nome }} {{ contato.sobrenome }}</h5>
+                        <p class="card-text">CPF: {{ contato.cpf }}</p>
+                        <p class="card-text">
+                            Grupos:
+                            {% for grupo in contato.grupos.all %}
+                            {{ grupo.nome }}
+                            {% endfor %}
+                        </p>
+                    </div>
+            {% empty %}
+            <h2>Nenhum contato foi adicionado na lista</h2>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

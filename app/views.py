@@ -1,46 +1,58 @@
 from django.shortcuts import render
 from django.shortcuts import render
 from .models import *
-
-
-def base(request):
-    return render(request,'template')
-
-def contato_list_view(request):
-    contato = Contato.objects.all()
-    return render(request, 'app/contatos_list.html', {'contatos': contato})
-
-
-# def grupo_list(request, pk):
-#     grupo = get_object_or_404(Grupo, pk=pk)
-#     return render(request, 'grupo_list.html', {'grupo': grupo})
-
-
-# def telefone_list(request, pk):
-#     telefone = get_object_or_404(Telefone, pk=pk)
-#     return render(request, 'telefone_list.html', {'telefone': telefone})
+from django.views import View
 
 
 
-# def email_list(request, pk):
-#     email = get_object_or_404(Email, pk=pk)
-#     return render(request, 'email_list.html', {'email': email})
+class indexView(View):
+    def get(self,request, *args,**kwargs):
+        return render(request,'index.html')
+    def post(self, request):
+        pass 
+
+class contato_listView(View):
+    def get(self,request,*args,**kwargs):
+        contato = Contato.objects.all()
+        return render(request, 'contatos_list.html', {'contatos': contato})
+
+
+class grupo_listView(View):
+    def get(self,request,*args,**kwargs):
+        grupo = Grupo.objects.all()
+        return render(request, 'grupos_list.html', {'grupos': grupo})
+
+
+class telefone_listView(View):
+    def get(self,request,*args,**kwargs):
+        telefone = Telefone.objects.all()
+        return render(request, 'telefones_list.html', {'telefone': telefone})
 
 
 
-# def usuario_list(request, pk):
-#     usuario = get_object_or_404(Usuario, pk=pk)
-#     return render(request, 'usuario_list.html', {'usuario': usuario})
+class email_listView(View):
+    def get(self,request,*args,**kwargs):
+        email = Email.objects.all()
+        return render(request, 'emails_list.html', {'email': email})
 
 
 
-# def pesquisa_list(request, pk):
-#     pesquisa = get_object_or_404(Pesquisa, pk=pk)
-#     return render(request, 'pesquisa_list.html', {'pesquisa': pesquisa})
+class usuario_listView(View):
+    def get(self,request,*args,**kwargs):
+        usuario = Usuario.objects.all()
+        return render(request, 'usuarios_list.html', {'usuario': usuario})
 
 
-# def chamada_list(request, pk):
-#     chamada = get_object_or_404(Chamada, pk=pk)
-#     return render(request, '/chamada_list.html', {'chamada': chamada})
+
+class pesquisa_listView(View):
+    def get(self,request,*args,**kwargs):
+        pesquisa = Pesquisa.objects.all()
+        return render(request, 'pesquisas_list.html', {'pesquisa': pesquisa})
+
+
+class chamada_listView(View):
+    def get(self,request,*args,**kwargs):
+        chamada = Chamada.objects.all()
+        return render(request, 'chamadas_list.html', {'chamada': chamada})
 
 

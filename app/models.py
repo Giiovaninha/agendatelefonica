@@ -1,5 +1,6 @@
 from django.db import models
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
+from .models import *
 
 
 class Grupo(models.Model):
@@ -18,9 +19,8 @@ class Contato(models.Model):
 
     class Meta:
         ordering = ['nome']
-
     def __str__(self):
-        return f"{self.nome} {self.sobrenome}"
+         return f"{self.nome} {self.sobrenome}"
 
 class Telefone(models.Model):
     numero = models.CharField(max_length=20)
@@ -30,11 +30,11 @@ class Telefone(models.Model):
         return self.numero
 
 class Email(models.Model):
-    endereco = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=255)
     contato = models.ForeignKey(Contato, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.endereco
+        return self.email
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=200)
