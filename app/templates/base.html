@@ -38,6 +38,28 @@
         .custom-button:hover {
             background-color: #d4ac0d;
         }
+
+        .custom-footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .navbar-light .navbar-brand {
+            color: #333;
+        }
+
+        .navbar-light .nav-link {
+            color: #333;
+        }
+
+        .navbar-light .nav-link:hover {
+            color: #f1c40f;
+        }
     </style>
 </head>
 
@@ -46,7 +68,7 @@
     <nav class="custom-nav navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="static/agenda.jpeg" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+                <img src=" static/agenda.jpeg " alt="Logo" width="30" height="30" class="d-inline-block align-top">
             </a>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -57,7 +79,6 @@
         </div>
     </nav>
 
-    <!-- Segunda Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/contato/">Contatos</a>
@@ -68,30 +89,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/chamada/">Chamadas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/contato/"></a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/grupo/">Grupos</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/email/">Email</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/telefone/">Telefones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/usuario/">Usuarios</a>
-                    </li>
-                    
-
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-expanded="false">
-                            
+                            Mais
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -102,22 +105,27 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" aria-disabled="true"></a>
-                    </li>
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
-            {% block content%}
-            {% endblock%}
         </div>
     </nav>
 
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="custom-footer">
+        &copy; 2024 Agenda de Contatos. Todos os direitos reservados.
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJbJpIVM1w1WfPpMNpYdYX+0Bue6Ig8ifGw/+0MZXhpLxVHQ"

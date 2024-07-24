@@ -13,8 +13,9 @@ class indexView(View):
 
 class contato_listView(View):
     def get(self,request,*args,**kwargs):
-        contato = Contato.objects.all()
-        return render(request, 'contatos_list.html', {'contatos': contato})
+        contato = Contato.objects.filter()
+        usuarios = Usuario.objects.all()
+        return render(request, 'contatos_list.html', {'contatos': contato, 'usuarios': usuarios})
 
 
 class grupo_listView(View):
@@ -26,7 +27,7 @@ class grupo_listView(View):
 class telefone_listView(View):
     def get(self,request,*args,**kwargs):
         telefone = Telefone.objects.all()
-        return render(request, 'telefones_list.html', {'telefone': telefone})
+        return render(request, 'usuarios_list.html', {'telefone': telefone})
 
 
 
