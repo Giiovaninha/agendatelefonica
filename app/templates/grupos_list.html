@@ -1,14 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Lista de Grupos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+
+        .custom-nav {
+            background-color: #1a3e62;
+            border-radius: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .custom-nav .navbar-brand,
+        .custom-nav .nav-link {
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 5px 10px;
+        }
+
+        .custom-nav .nav-link:hover,
+        .custom-nav .navbar-brand:hover {
+            color: #7975d6;
+        }
+
+        .custom-button {
+            background-color: #7975d6;
+            color: #134577;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-button:hover {
+            background-color: #5c679d;
+        }
+
+        .custom-footer {
+            background-color: #1a3e62;
+            color: #ffffff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .navbar-light .navbar-brand {
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 5px 10px;
+        }
+
+        .navbar-light .nav-link {
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 5px 10px;
+        }
+
+        .navbar-light .nav-link:hover {
+            color: #ffc107;
+        }
+
+        .container {
+            margin-top: 80px;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-form input {
+            margin-right: 10px;
+            border-radius: 10px;
+            flex-grow: 1;
+        }
+
+        .search-form button {
+            border-radius: 10px;
+        }
+
+        a.btn-rounded {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background-color: #1a3e62;
+            color: #ffffff;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        a.btn-rounded:hover {
+            background-color: #7975d6;
+            color: #ffffff;
+        }
+
+        .navbar-brand .brand-text {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+            font-size: 1.5rem;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Grupos</h1>
-    <ul>
-        {% for grupo in grupos %}
+    <nav class="custom-nav navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="static/agenda.jpeg" alt="Logo" width="80" height="60"
+                    class="d-inline-block align-top">
+                <span class="brand-text text-light bg-ligth active">Agenda de Contatos</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active text-light bg-ligth active" href="/contato/">Contatos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light bg-ligth active" href="/grupo/">Grupos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light bg-ligth active" href="/admin/">Administração</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light bg-ligth active" href="{% url 'index' %}">Página Principal</a>
+                    </li>
+                </ul>
+                <a class="btn-rounded ml-2 btn btn-outline-dark" href="#">Login</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h1 class="mb-4 text-center">Grupos</h1>
+        <ul>
+            {% for grupo in grupos %}
             <li>{{ grupo.nome }}: {{ grupo.descricao }}</li>
-        {% endfor %}
-    </ul>
+            {% empty %}
+            <li>Nenhum grupo encontrado.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <footer class="custom-footer">
+        © 2024 Sua Empresa. Todos os direitos reservados.
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk5br1N6oQ1rj9jmyRsbtOv5IJr8iFA+6HGL1/AN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

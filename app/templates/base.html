@@ -4,44 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Agenda telefônica{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f0f2f5;
         }
 
         .custom-nav {
-            background-color: #333;
+            background-color: #1a3e62;
+            border-radius: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .custom-nav .navbar-brand,
-        .custom-nav .nav-link,
-        .custom-nav .nav-item .dropdown-toggle {
-            color: white;
+        .custom-nav .nav-link {
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 5px 10px;
         }
 
         .custom-nav .nav-link:hover,
         .custom-nav .navbar-brand:hover {
-            color: #f1c40f;
+            color: #7975d6;
         }
 
         .custom-button {
-            background-color: #f1c40f;
-            color: #333;
+            background-color: #7975d6;
+            color: #134577;
             border: none;
+            border-radius: 10px;
+            padding: 5px 15px;
+            transition: background-color 0.3s ease;
         }
 
         .custom-button:hover {
-            background-color: #d4ac0d;
+            background-color: #5c679d;
+        }
+
+        .custom-header {
+            background-color: #1a3e62;
+            color: #ffffff;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+            display: none;
+            /* Removido o cabeçalho */
         }
 
         .custom-footer {
-            background-color: #333;
-            color: white;
+            background-color: #1a3e62;
+            color: #ffffff;
             text-align: center;
             padding: 1rem;
             position: fixed;
@@ -50,88 +69,128 @@
         }
 
         .navbar-light .navbar-brand {
-            color: #333;
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 5px 10px;
         }
 
         .navbar-light .nav-link {
-            color: #333;
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 5px 10px;
         }
 
         .navbar-light .nav-link:hover {
-            color: #f1c40f;
+            color: #ffc107;
+        }
+
+        .container {
+            margin-top: 80px;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-form input {
+            margin-right: 10px;
+            border-radius: 10px;
+            flex-grow: 1;
+        }
+
+        .search-form button {
+            border-radius: 10px;
+        }
+
+        a.btn-rounded {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background-color: #1a3e62;
+            color: #ffffff;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        a.btn-rounded:hover {
+            background-color: #7975d6;
+            color: #ffffff;
+        }
+
+        .navbar-brand .brand-text {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+            font-size: 1.5rem;
         }
     </style>
 </head>
 
 <body>
-    <!-- Primeira Navbar -->
-    <nav class="custom-nav navbar navbar-expand-lg">
+    <!-- Navbar combinada -->
+    <nav class="custom-nav navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src=" static/agenda.jpeg " alt="Logo" width="30" height="30" class="d-inline-block align-top">
+                <img src="static/agenda.jpeg" alt="Logo" width="80" height="60" class="d-inline-block align-top">
+                <span class="brand-text">Agenda de Contatos</span>
             </a>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Agenda</a>
-                </li>
-            </ul>
-            <button class="btn custom-button ml-2">Login</button>
-        </div>
-    </nav>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/contato/">Contatos</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
+                <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/grupo/">Grupos</a>
+                        <a class="nav-link text-light bg-ligth active" href="/contato/">Contatos</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-expanded="false">
-                            Mais
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link text-light bg-ligth" href="/grupo/">Grupos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light bg-ligth" href="/admin/">Administração</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light bg-ligth" href="index.html">Pagina Principal</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <a class="btn-rounded ml-2 btn btn-outline-dark" href="#">Login</a>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4">
-        {% block content %}
-        {% endblock %}
+    <div class="container">
+        <!-- Formulário de busca -->
+        <div class="search-container">
+            <form class="search-form" role="search">
+                <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+                <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            </form>
+        </div>
     </div>
 
     <!-- Rodapé -->
     <footer class="custom-footer">
-        &copy; 2024 Agenda de Contatos. Todos os direitos reservados.
+        © 2024 Sua Empresa. Todos os direitos reservados.
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvvH+8abtTE1Pi6jizo"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJbJpIVM1w1WfPpMNpYdYX+0Bue6Ig8ifGw/+0MZXhpLxVHQ"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLa8tAn1oWf2ySam7c5t1p6K4t5h5p6K4t5h5"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+dZZbVOFbB0GmGa6iJ7ksg3tnDz4yy1AP+4l3n9nhal7jk28j"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 </body>
 
