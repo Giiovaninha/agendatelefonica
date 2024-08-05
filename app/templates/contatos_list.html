@@ -1,235 +1,51 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
+{% block title %}Contatos{% endblock %}
 
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f0f2f5;
-    }
-
-    .custom-nav {
-        background-color: #1a3e62;
-        border-radius: 10px;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
-
-    .custom-nav .navbar-brand,
-    .custom-nav .nav-link {
-        color: #ffffff;
-        border-radius: 10px;
-        padding: 5px 10px;
-    }
-
-    .custom-nav .nav-link:hover,
-    .custom-nav .navbar-brand:hover {
-        color: #7975d6;
-    }
-
-    .custom-button {
-        background-color: #7975d6;
-        color: #134577;
-        border: none;
-        border-radius: 10px;
-        padding: 5px 15px;
-        transition: background-color 0.3s ease;
-    }
-
-    .custom-button:hover {
-        background-color: #5c679d;
-    }
-
-    .custom-header {
-        background-color: #1a3e62;
-        color: #ffffff;
-        padding: 1rem;
-        text-align: center;
-        border-radius: 10px;
-        display: none;
-        /* Removido o cabeçalho */
-    }
-
-    .custom-footer {
-        background-color: #1a3e62;
-        color: #ffffff;
-        text-align: center;
-        padding: 1rem;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-    }
-
-    .navbar-light .navbar-brand {
-        color: #ffffff;
-        border-radius: 10px;
-        padding: 5px 10px;
-    }
-
-    .navbar-light .nav-link {
-        color: #ffffff;
-        border-radius: 10px;
-        padding: 5px 10px;
-    }
-
-    .navbar-light .nav-link:hover {
-        color: #ffc107;
-    }
-
-    .container {
-        margin-top: 80px;
-    }
-
-    .search-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .search-form {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        max-width: 600px;
-    }
-
-    .search-form input {
-        margin-right: 10px;
-        border-radius: 10px;
-        flex-grow: 1;
-    }
-
-    .search-form button {
-        border-radius: 10px;
-    }
-
-    a.btn-rounded {
-        display: inline-block;
-        padding: 10px 20px;
-        border-radius: 20px;
-        background-color: #1a3e62;
-        color: #ffffff;
-        text-align: center;
-        transition: background-color 0.3s ease;
-        text-decoration: none;
-    }
-
-    a.btn-rounded:hover {
-        background-color: #7975d6;
-        color: #ffffff;
-    }
-
-    .navbar-brand .brand-text {
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 10px;
-        font-size: 1.5rem;
-    }
-</style>
-
-
-
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Lista de Contatos</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        
-</head>
-
-<body>
-    <nav class="custom-nav navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="static/agenda.jpeg" alt="Logo" width="80" height="60" class="d-inline-block align-top">
-                <span class="brand-text text-light bg-ligth">Agenda de Contatos</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
-                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-light bg-ligth active" href="/contato/">Contatos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light bg-ligth" href="/grupo/">Grupos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light bg-ligth" href="/admin/">Administração</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light bg-ligth" href="{% url 'index' %}">Pagina Principal</a>
-                    </li>
-                </ul>
-                <a class="btn-rounded ml-2 btn btn-outline-dark" href="#">Login</a>
-            </div>
-        </div>
-    </nav>
-    {% load static %}
-    <div class="container mt-4">
-        <h1 class="mb-4 text-center">Lista de Contatos</h1>
-        <div class="row">
-            {% for contato in contatos %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    {% if contato.foto %}
-                    <img src="{{ contato.foto.url }}" class="card-img-top" alt="Foto de {{ contato.nome }}">
-                    {% else %}
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Foto de {{ contato.nome }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ contato.nome }} {{ contato.sobrenome }}</h5>
-                        <p class="card-text">CPF: {{ contato.cpf }}</p>
-                        <p class="card-text">
-                            <strong>Grupos:</strong>
-                            {% for grupo in contato.grupos.all %}
-                            <span class="badge badge-primary">{{ grupo.nome }}</span>
-                            {% endfor %}
-                        </p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <strong>Telefones:</strong>
-                            <ul class="list-unstyled mb-0">
-                                {% for tel in contato.telefone_set.all %}
-                                <li>Telefone {{ forloop.counter }}: {{ tel.numero }}</li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Emails:</strong>
-                            <ul class="list-unstyled mb-0">
-                                {% for email in contato.email_set.all %}
-                                <li>Email {{ forloop.counter }}: {{ email.endereco }}</li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-12">
-                <h2 class="text-center">Nenhum contato foi adicionado na lista</h2>
-            </div>
+{% block content %}
+<h1>Contatos</h1>
+<hr>
+<div class="h-100 p-5 bg-light border rounded-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+    {% for contato in contatos %}
+    <div class="col">
+      <div class="card">
+        {% if contato.foto %}
+        <img style="height:200px" src="{{ contato.foto.url }}" class="card-img-top img-thumbnail" alt="{{ contato.nome }}">
+        {% else %}
+        <img style="height:200px" src="{% static 'fotos/agenda.png' %}" class="card-img-top img-thumbnail" alt="Imagem padrão">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ contato.nome }}</h5>
+          <p>
+            {% for grupo in contato.grupos.all %}
+            {{ grupo.nome }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
+          </p>
         </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <h6 class="card-title">Telefones:</h6>
+          </li>
+          {% for tel in contato.telefone_set.all %}
+          <li class="list-group-item">Telefone {{ forloop.counter }}: {{ tel.numero }}</li>
+          {% endfor %}
+        </ul>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <h6 class="card-title">Emails:</h6>
+          </li>
+          {% for email in contato.email_set.all %}
+          <li class="list-group-item">Email {{ forloop.counter }}: {{ email.endereco }}</li>
+          {% endfor %}
+        </ul>
+        <a class="btn btn-primary" href="{% url 'editar_contato' contato.id %}">Editar</a>
+      </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk5br1N6oQ1rj9jmyRsbtOv5IJr8iFA+6HGL1/AN"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+    {% empty %}
+    <h2>Nenhum contato foi adicionado</h2>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

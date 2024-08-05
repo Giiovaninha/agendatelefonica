@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Novo Grupo{% endblock %}
+{% block title %}Novo tel para {{ contato.nome }}{% endblock %}
 
 {% block content %}
 <div class="h-100 p-5 bg-light border rounded-3">
-  <h1>Novo grupo</h1>
+  <h1>Novo telefone para {{ contato.nome }}</h1>
   <form method="post">
     {% csrf_token %}
     {{ form|crispy }}

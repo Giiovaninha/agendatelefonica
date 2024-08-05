@@ -15,6 +15,7 @@ class Contato(models.Model):
     sobrenome = models.CharField(max_length=50, unique=True)
     foto = models.ImageField(upload_to='fotos/', null=True, blank=True)
     grupos = models.ManyToManyField(Grupo)
+    
     cpf = models.CharField(max_length=14)  
 
     class Meta:
@@ -30,11 +31,11 @@ class Telefone(models.Model):
         return self.numero
 
 class Email(models.Model):
-    email = models.EmailField(max_length=255)
+    endereco = models.EmailField(max_length=255)
     contato = models.ForeignKey(Contato, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.email
+        return self.endereco
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=200)
