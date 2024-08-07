@@ -8,7 +8,7 @@
   <h1>Novo grupo</h1>
   <form method="post">
     {% csrf_token %}
-    {{ form|crispy }}
+    {{ form}}
     <br>
     <input class="btn btn-success" type="submit" value="Salvar">
   </form>

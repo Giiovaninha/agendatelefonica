@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Resultados da Busca{% endblock %}
+
+{% block content %}
+<h1>Resultados da Busca</h1>
+<hr>
+<div class="h-100 p-5 bg-light border rounded-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+    {% for contato in resultados %}
+    <div class="col">
+      <div class="card">
+        {% if contato.foto %}
+        <img style="height:200px" src="{{ contato.foto.url }}" class="card-img-top img-thumbnail" alt="{{ contato.nome }}">
+        {% else %}
+        <img style="height:200px" src="{% static 'fotos/agenda.png' %}" class="card-img-top img-thumbnail" alt="Imagem padrão">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ contato.nome }}</h5>
+          <p>
+            {% for grupo in contato.grupos.all %}
+            {{ grupo.nome }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <h6 class="card-title">Telefones:</h6>
+          </li>
+          {% for tel in contato.telefone_set.all %}
+          <li class="list-group-item">Telefone {{ forloop.counter }}: {{ tel.numero }}</li>
+          {% endfor %}
+        </ul>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <h6 class="card-title">Emails:</h6>
+          </li>
+          {% for email in contato.email_set.all %}
+          <li class="list-group-item">Email {{ forloop.counter }}: {{ email.endereco }}</li>
+          {% endfor %}
+        </ul>
+        <a class="btn btn-primary" href="{% url 'editar_contato' contato.id %}">Editar</a>
+      </div>
+    </div>
+    {% empty %}
+    <h2>Nenhum contato encontrado para "{{ query }}"</h2>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

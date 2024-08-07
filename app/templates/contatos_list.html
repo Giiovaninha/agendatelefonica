@@ -17,7 +17,7 @@
         <img style="height:200px" src="{% static 'fotos/agenda.png' %}" class="card-img-top img-thumbnail" alt="Imagem padrão">
         {% endif %}
         <div class="card-body">
-          <h5 class="card-title">{{ contato.nome }}</h5>
+          <h5 class="card-title">{{ contato.nome }} {{contato.sobrenome}}</h5>
           <p>
             {% for grupo in contato.grupos.all %}
             {{ grupo.nome }}{% if not forloop.last %}, {% endif %}

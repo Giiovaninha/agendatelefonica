@@ -2,64 +2,22 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .forms import *
 
+
 def contatos_list_view(request):
     contatos = Contato.objects.all()
     return render(request, 'contatos_list.html', {'contatos':contatos})
 
-def editar_contato(request, contato_id):
-    contato = get_object_or_404(Contato, id=contato_id)
+def editar_contato(request, id):
+    contato = get_object_or_404(Contato, id=id)
     if request.method == 'POST':
-        form = EditarContatoForm(request.POST, id=contato_id)
+        form = EditarContatoForm(request.POST, id=id)
         if form.is_valid():
-            cd = form.cleaned_data
-            contato.nome = cd['nome_contato']
-            contato.save() 
-
-            cd_grupos = []
-            cd_tels = []
-            cd_email = []
-
-            for nome, valor in cd.items():
-                if nome.startswith('tel_'):
-                    cd_tels.append(valor)
-                elif nome.startswith('emails_'):
-                    cd_email.append(valor)
-                elif nome.startswith('g_'):
-                    if valor:
-                        grupo = Grupo.objects.get(nome=nome.replace('g_', ''))
-                        cd_grupos.append(grupo)
-
-            contato_tels = contato.telefone_set.all()
-            contato_emails = contato.email_set.all()
-            contato_grupos = contato.grupos.all()
-
-            for i, tel in enumerate(contato_tels):
-                if i < len(cd_tels):
-                    tel.numero = cd_tels[i]
-                    tel.save()
-                else:
-                    tel.delete()  
-
-            for i, email in enumerate(contato_emails):
-                if i < len(cd_email):
-                    email.descricao = cd_email[i]
-                    email.save()
-                else:
-                    email.delete()  
-
-            for grupo in cd_grupos:
-                if grupo not in contato_grupos:
-                    contato.grupos.add(grupo)
-
-            for grupo in contato_grupos:
-                if grupo not in cd_grupos:
-                    contato.grupos.remove(grupo)
-            
+            form.save()
             return redirect('contatos_list_view')
     else:
-        form = EditarContatoForm(instance=contato)
-    
+        form = EditarContatoForm(id=id)
     return render(request, 'editar_contato.html', {'form': form, 'contato': contato})
+
 
 
 def novo_grupo_view(request):
@@ -116,6 +74,40 @@ def excluir_email_view(request, contato_id, label):
     email = contato.email_set.all()[email_seq]
     email.delete()
     return redirect('editar_contato', contato_id=contato.id)
+
+def buscar_contatos(request):
+    query = request.GET.get('q', '')
+    resultados = Contato.objects.filter(nome__icontains=query)
+    return render(request, 'resultados_busca.html', {'resultados': resultados, 'query': query})
+
+def criar_contato(request):
+    if request.method == 'POST':
+        contato_form = ContatoForm(request.POST, request.FILES)
+        telefone_form = TelefoneForm(request.POST)
+        email_form = EmailForm(request.POST)
+        
+        if contato_form.is_valid() and telefone_form.is_valid() and email_form.is_valid():
+            contato = contato_form.save()
+            
+            telefone = telefone_form.save(commit=False)
+            telefone.contato = contato
+            telefone.save()
+            
+            email = email_form.save(commit=False)
+            email.contato = contato
+            email.save()
+            
+            return redirect('contatos_list_view')  
+    else:
+        contato_form = ContatoForm()
+        telefone_form = TelefoneForm()
+        email_form = EmailForm()
+    
+    return render(request, 'criar_contato.html', {
+        'contato_form': contato_form,
+        'telefone_form': telefone_form,
+        'email_form': email_form,
+    })
 
 
 

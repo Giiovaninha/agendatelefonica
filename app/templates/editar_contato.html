@@ -4,24 +4,41 @@
 
 {% block title %}Editar {{ contato.nome }}{% endblock %}
 {% block content %}
-<div class="h-100 p-5 bg-light border rounded-3">
-  <h1>Editar {{ contato.nome }}</h1>
-  <form method="post">
+<div class="h-100 p-5 bg-light border rounded-3" style="max-width: 800px; margin: auto;">
+  <h1 style="margin-bottom: 20px;">Editar {{ contato.nome }}</h1>
+  <form method="post" style="padding: 20px; background-color: #fff; border-radius: 8px;" enctype="multipart/form-data">
     {% csrf_token %}
-    <hr>
+    <hr style="margin-top: 20px; margin-bottom: 20px;">
     
-    <h3>Editar Grupos</h3>
+    <h3 style="margin-bottom: 15px;">Editar Foto</h3>
+    <div class="mb-3">
+      <label for="id_foto" class="form-label">Foto Atual</label>
+      <div style="margin-bottom: 10px;">
+        {% if contato.foto %}
+          <img src="{{ contato.foto.url }}" alt="Foto Atual" style="max-width: 200px; height: auto; border-radius: 8px;">
+        {% else %}
+          <p>Sem foto atual</p>
+        {% endif %}
+      </div>
+      <label for="id_foto" class="form-label">Nova Foto</label>
+      {{ form.foto }}
+    </div>
+
+    <hr style="margin-top: 20px; margin-bottom: 20px;">
+
+    <h3 style="margin-bottom: 15px;">Editar Grupos</h3>
     {% for field in form.visible_fields %}
       {% if field.field.widget.input_type == 'checkbox' %}
         <div class="row mb-2">
           <div class="col-12">
-            {{ field|as_crispy_field }}
+            {{ field }}
+            <label for="{{ field.id_for_label }}" style="margin-left: 5px;">{{ field.label }}</label>
           </div>
         </div>
       {% endif %}
     {% endfor %}
     
-    <a class="btn btn-primary mb-3" href="{% url 'novo_grupo' %}">+ Adicionar Grupo</a>
+    <a class="btn btn-primary mb-3" href="{% url 'novo_grupo' %}" style="margin-bottom: 20px; display: inline-block;">+ Adicionar Grupo</a>
     <hr>
     
     {% for field in form.visible_fields %}
@@ -29,10 +46,10 @@
         {% if 'Email' in tipo %}
           <div class="row mb-2">
             <div class="col-11">
-              {{ field|as_crispy_field }}
+              {{ field }}
             </div>
             <div class="col-1 pt-4">
-              <a class="btn btn-danger" href="{% url 'excluir_email' contato_id=contato.id label=field.label %}">
+              <a class="btn btn-danger" href="{% url 'excluir_email' contato_id=contato.id label=field.label %}" style="display: flex; align-items: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                   <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -43,10 +60,10 @@
         {% elif 'Tel' in tipo %}
           <div class="row mb-2">
             <div class="col-11">
-              {{ field|as_crispy_field }}
+              {{ field }}
             </div>
             <div class="col-1 pt-4">
-              <a class="btn btn-danger" href="{% url 'excluir_telefone' contato_id=contato.id label=field.label %}">
+              <a class="btn btn-danger" href="{% url 'excluir_telefone' contato_id=contato.id label=field.label %}" style="display: flex; align-items: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                   <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -58,7 +75,7 @@
           {% if field.field.widget.input_type != 'checkbox' %}
             <div class="row mb-2">
               <div class="col-12">
-                {{ field|as_crispy_field }}
+                {{ field}}
               </div>
             </div>
           {% endif %}
@@ -69,11 +86,11 @@
     <br>
     
     <p>
-      <input class="btn btn-success" type="submit" value="Salvar">
-      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal{{ contato.id }}">
+      <input class="btn btn-success" type="submit" value="Salvar" style="margin-right: 10px;">
+      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal{{ contato.id }}" style="margin-right: 10px;">
         Excluir
       </button>
-      <a class="btn btn-primary" href="{% url 'novo_tel' contato.id %}">+ Adicionar Número</a>
+      <a class="btn btn-primary" href="{% url 'novo_tel' contato.id %}" style="margin-right: 10px;">+ Adicionar Número</a>
       <a class="btn btn-primary" href="{% url 'novo_email' contato.id %}">+ Adicionar E-mail</a>
     </p>
 
