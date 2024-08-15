@@ -70,3 +70,8 @@ class EmailForm(forms.ModelForm):
     class Meta:
         model = Email
         fields = ['endereco']
+
+class CriarGrupoForm(forms.ModelForm):
+    class Meta:
+        model = Grupo
+        fields = ['nome']

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Grupos{% endblock %}
+
+{% block extra_styles %}
+<style>
+    h1 {
+        color: #003366; 
+        text-align: center; 
+    }
+    p {
+        font-size: 1.25rem; 
+        text-align: center; 
+        color: #666; 
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Detalhes do Grupo</h1>
+<p>Nome do Grupo: {{ grupo.nome }}</p>
+{% endblock %}

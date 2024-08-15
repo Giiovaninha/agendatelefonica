@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Novo Contato{% endblock %}
+{% block title %}Novo Grupo{% endblock %}
 
 {% block content %}
 <style>
-    /* Estilos específicos para o formulário com a classe criar_contato */
     .criar_contato {
         background-color: #fff;
         border-radius: 12px;
@@ -78,18 +77,15 @@
     }
 </style>
 
-<h1>Criar Novo Contato</h1>
+<h1>Criar Novo Grupo</h1>
 <hr>
-<form class="criar_contato" method="post" enctype="multipart/form-data">
+<form method="post">
     {% csrf_token %}
     
-    {{ contato_form.as_p }}
-    
-    <h3>Telefones</h3>
-    {{ telefone_form.as_p }}
-    
-    <h3>Emails</h3>
-    {{ email_form.as_p }}
+    <div class="form-group">
+        <label for="id_nome"></label>
+        {{ form.as_p }}
+    </div>
     
     <button type="submit" class="btn btn-primary">Salvar</button>
 </form>

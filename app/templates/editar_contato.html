@@ -38,7 +38,7 @@
       {% endif %}
     {% endfor %}
     
-    <a class="btn btn-primary mb-3" href="{% url 'novo_grupo' %}" style="margin-bottom: 20px; display: inline-block;">+ Adicionar Grupo</a>
+    <a class="btn btn-primary mb-3" href="{% url 'novo_grupo' %}" style="margin-bottom: 20px; display: inline-block;">Adicionar Grupo</a>
     <hr>
     
     {% for field in form.visible_fields %}
@@ -75,7 +75,7 @@
           {% if field.field.widget.input_type != 'checkbox' %}
             <div class="row mb-2">
               <div class="col-12">
-                {{ field}}
+                {{ field }}
               </div>
             </div>
           {% endif %}
@@ -90,8 +90,8 @@
       <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal{{ contato.id }}" style="margin-right: 10px;">
         Excluir
       </button>
-      <a class="btn btn-primary" href="{% url 'novo_tel' contato.id %}" style="margin-right: 10px;">+ Adicionar Número</a>
-      <a class="btn btn-primary" href="{% url 'novo_email' contato.id %}">+ Adicionar E-mail</a>
+      <a class="btn btn-primary" href="{% url 'novo_tel' contato.id %}" style="margin-right: 10px;">Adicionar Número</a>
+      <a class="btn btn-primary" href="{% url 'novo_email' contato.id %}">Adicionar E-mail</a>
     </p>
 
     <div class="modal fade" id="modal{{ contato.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
