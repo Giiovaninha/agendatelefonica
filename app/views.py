@@ -11,12 +11,12 @@ def contatos_list_view(request):
 def editar_contato(request, id):
     contato = get_object_or_404(Contato, id=id)
     if request.method == 'POST':
-        form = EditarContatoForm(id=id)
+        form = EditarContatoForm(request.POST, id=id, instance=contato)
         if form.is_valid():
             form.save()
             return redirect('contatos_list_view')
     else:
-        form = EditarContatoForm(id=id)
+        form = EditarContatoForm(id=id, instance=contato)
     return render(request, 'editar_contato.html', {'form': form, 'contato': contato})
 
 
@@ -60,7 +60,7 @@ def novo_email_view(request, contato_id):
 def excluir_contato_view(request, contato_id):
     contato = get_object_or_404(Contato, id=contato_id)
     contato.delete()
-    return redirect(reverse('editar_contato', kwargs={'id': contato_id}))
+    return redirect(reverse('contatos_list_view')) 
 
 def excluir_telefone_view(request, contato_id, label):
     contato = get_object_or_404(Contato, id=contato_id)
@@ -94,6 +94,20 @@ def criar_grupo(request):
     else:
         form = NovoGrupoForm()
     return render(request, 'criar_grupo.html', {'form': form})
+
+
+def editar_grupo(request, id):
+    grupo = get_object_or_404(Grupo, id=id)
+    
+    if request.method == 'POST':
+        form = NovoGrupoForm(request.POST, instance=grupo)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('detalhes_grupo', kwargs={'id': grupo.id}))
+    else:
+        form = NovoGrupoForm(instance=grupo)
+    
+    return render(request, 'editar_grupo.html', {'form': form, 'grupo': grupo})
 
 def lista_grupos(request):
     grupos = Grupo.objects.all()  
@@ -132,6 +146,8 @@ def criar_contato(request):
         'telefone_form': telefone_form,
         'email_form': email_form,
     })
+
+
 
 
 

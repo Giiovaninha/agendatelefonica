@@ -17,6 +17,9 @@
         <tr>
             <td>{{ grupo.nome }}</td>
             <td>{{ grupo.descricao }}</td>
+            <td>
+                <a href="{% url 'editar_grupo' id=grupo.id %}" class="btn btn-primary btn-sm">Editar</a>
+            </td>
         </tr>
         {% empty %}
         <tr>

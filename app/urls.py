@@ -16,5 +16,5 @@ urlpatterns = [
     path('grupos/<int:id>/', views.detalhes_grupo, name='detalhes_grupo'),
     path('grupos/', views.lista_grupos, name='lista_grupos'),
     path('contatos/', views.lista_contatos, name='lista_contatos'),
-
+    path('grupos/<int:id>/editar/', views.editar_grupo, name='editar_grupo'),
 ]

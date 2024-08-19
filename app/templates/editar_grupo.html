@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Editar Grupo{% endblock %}
+
+{% block content %}
+<div class="h-100 p-5 bg-light border rounded-3">
+  <h1>Editar grupo</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <br>
+    <input class="btn btn-primary" type="submit" value="Salvar alterações">
+  </form>
+</div>
+{% endblock %}

@@ -81,12 +81,9 @@
 <hr>
 <form method="post">
     {% csrf_token %}
-    
-    <div class="form-group">
-        <label for="id_nome"></label>
-        {{ form.as_p }}
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Salvar</button>
-</form>
+    {{ form }}
+    <br>
+    <input class="btn btn-success" type="submit" value="Salvar">
+  </form>
+</div>
 {% endblock %}

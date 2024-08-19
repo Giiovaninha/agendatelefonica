@@ -6,7 +6,7 @@
 {% block content %}
 <div class="h-100 p-5 bg-light border rounded-3" style="max-width: 800px; margin: auto;">
   <h1 style="margin-bottom: 20px;">Editar {{ contato.nome }}</h1>
-  <form method="post" style="padding: 20px; background-color: #fff; border-radius: 8px;" enctype="multipart/form-data">
+  <form method="post" action="{% url 'editar_contato' id=contato.id %}" style="padding: 20px; background-color: #fff; border-radius: 8px;" enctype="multipart/form-data">
     {% csrf_token %}
     <hr style="margin-top: 20px; margin-bottom: 20px;">
     
@@ -39,6 +39,7 @@
     {% endfor %}
     
     <a class="btn btn-primary mb-3" href="{% url 'novo_grupo' %}" style="margin-bottom: 20px; display: inline-block;">Adicionar Grupo</a>
+
     <hr>
     
     {% for field in form.visible_fields %}

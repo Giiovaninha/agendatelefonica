@@ -53,11 +53,3 @@ class Pesquisa(models.Model):
     def __str__(self):
         return f"Pesquisa de {self.contato.nome} sobre {self.grupo.nome}"
 
-class Chamada(models.Model):
-    contato = models.ForeignKey(Contato, on_delete=models.CASCADE)
-    data = models.DateField()
-    horario = models.TimeField()
-    duracao = models.DurationField()
-
-    def __str__(self):
-        return f"Chamada de {self.contato.nome} em {self.data} às {self.horario}"
