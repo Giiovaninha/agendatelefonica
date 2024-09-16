@@ -148,8 +148,10 @@ def criar_contato(request):
     })
 
 
-
-
+def excluir_grupo(request, id):
+    grupo = get_object_or_404(Grupo, id=id)
+    grupo.delete()
+    return redirect('lista_grupos')
 
 
 

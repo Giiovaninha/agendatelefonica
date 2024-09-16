@@ -10,6 +10,7 @@
         <tr>
             <th>Nome</th>
             <th>Descrição</th>
+            <th>Ações</th> 
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,10 @@
             <td>{{ grupo.descricao }}</td>
             <td>
                 <a href="{% url 'editar_grupo' id=grupo.id %}" class="btn btn-primary btn-sm">Editar</a>
+                <form method="post" action="{% url 'excluir_grupo' id=grupo.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este grupo?');">Excluir</button>
+                </form>
             </td>
         </tr>
         {% empty %}
