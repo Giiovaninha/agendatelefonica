@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.contatos_list_view, name='contatos_list_view'),
@@ -19,4 +21,4 @@ urlpatterns = [
     path('grupos/<int:id>/editar/', views.editar_grupo, name='editar_grupo'),
     path('grupos/<int:id>/excluir/', views.excluir_grupo, name='excluir_grupo'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,7 +1,6 @@
 from django import forms
 from .models import *
-
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404
 
 class EditarContatoForm(forms.ModelForm):
     class Meta:
@@ -93,7 +92,18 @@ class EditarContatoForm(forms.ModelForm):
             raise forms.ValidationError("O nome escolhido já está sendo utilizado")
         return nome_contato
 
+def editar_contato(request, contato_id):
+    contato = get_object_or_404(Contato, id=contato_id)
 
+    if request.method == 'POST':
+        form = EditarContatoForm(request.POST, request.FILES, id=contato_id)
+        if form.is_valid():
+            form.save()
+            return redirect('contato_detalhes', contato_id=contato.id)
+    else:
+        form = EditarContatoForm(id=contato_id)
+
+    return render(request, 'editar_contato.html', {'form': form})
 
 class NovoGrupoForm(forms.ModelForm):
     class Meta:
@@ -133,3 +143,4 @@ class CriarGrupoForm(forms.ModelForm):
     class Meta:
         model = Grupo
         fields = ['nome']
+
